@@ -1,0 +1,68 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Amatic SC', cursive;
+    font-weight: normal;
+
+}
+
+/* Appearance */
+body {
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to right, skyblue, teal);
+}
+
+/* Button Layout/Calculator Grid */
+.calculator-grid {
+    display: grid;
+    justify-content: center; /*now we have all of our buttons in one row going from the top down */
+    align-content: center;
+    min-height: 100vh; /* set a height to fill 100% at all times. */
+    
+    /* need to use the grid system, such as grid-system-columns and grid-system-rows and create rows */
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+}
+
+/* Design ALL our buttons inside the grid */
+.calculator-grid > button {
+    cursor: pointer;
+    font-size: 2rem;
+    border: 1px solid rgba(0, 0, 0, .75);
+    outline: none; /*browesers put this in but we don't need it*/ 
+    background-color: rgba(255, 255, 255, .75);
+}
+
+.calculator-grid > button:hover {
+    background-color: rgba(255, 255, 255, .9);
+}
+
+/* Up until now, everything looks good but we need to get our
+allClear and the equals button to cover two cover two columbns */
+.span-two {
+    grid-column: span 2;
+}
+
+/* Our display screen and getting it to fill the top row */
+.output {
+    grid-column: 1 /-1;
+    background-color: rgba(0, 0, 0, .75);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-arond;
+    color: white;
+    padding: 10px;
+    flex-direction: column;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.output .previous-input {
+    color: rgba(255, 255, 255, .75);
+    font-size: 1.5rem;
+}
+
+.output .current-input {
+    color: white;
+    font-size: 2.5rem;
+}
