@@ -1,7 +1,8 @@
 *, *::before, *::after {
     box-sizing: border-box;
     font-family: 'Amatic SC', cursive;
-    font-weight: normal;
+    /* font-weight: normal; */
+    font-weight: 100;
 
 }
 
@@ -18,8 +19,7 @@ body {
     justify-content: center; /*now we have all of our buttons in one row going from the top down */
     align-content: center;
     min-height: 100vh; /* set a height to fill 100% at all times. */
-    
-    /* need to use the grid system, such as grid-system-columns and grid-system-rows and create rows */
+    /* need to make use of the grid system, to create our columns and rows */
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
 }
@@ -55,6 +55,7 @@ allClear and the equals button to cover two cover two columbns */
     flex-direction: column;
     word-wrap: break-word;
     word-break: break-all;
+   
 }
 
 .output .previous-input {
