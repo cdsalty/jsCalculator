@@ -45,7 +45,7 @@ allClear and the equals button to cover two cover two columbns */
 
 /* Our display screen and getting it to fill the top row */
 .output {
-    grid-column: 1 /-1;
+    grid-column: 1 / -1;
     background-color: rgba(0, 0, 0, .75);
     display: flex;
     align-items: flex-end;
