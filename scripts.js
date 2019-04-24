@@ -11,7 +11,7 @@ class Calculator {
     //Step 3: Consider all the operations our calculator class can perform
     clear(){ // To clear out our different variables; what specifically to clear out.
         this.currentOperand = '';  // the input being entered on the lower portion of the calculator display
-        this.previousOperation = ''; // the input previously entered, stored/display on the top of the calculator display
+        this.previousOperand = ''; // the input previously entered, stored/display on the top of the calculator display
         this.operation = undefined; // if we clear things, there will be no current, previous or operations displayed; undefined;
         // this is setting the properties displayed in the calculator window to empty strings; call it as soon as a new instance of
         // the calculator is created.
@@ -29,21 +29,46 @@ class Calculator {
 
     chooseOperation(operation){  // anytime a user clicks on the operation; this function will take the operation selected and do something.
         if (this.currentOperand === '') return
-        if (this.previousOperation !== ''){
-            this.compute()
+        if (this.previousOperand !== ''){
+            this.compute();
         }
         this.operation = operation;
-        this.previousOperation = this.currentOperand; // making the previousOperation now hold the currentOperand that was input
+        this.previousOperand = this.currentOperand; // making the previousOperand now hold the currentOperand that was input
         this.currentOperand = ''; // now the currentOperand position is empty. 
     }
 
     compute(){  // will take values inside our calculator and compute a singe value for what needs to display.
+        let computation;
+        const prev = parseFloat(this.previousOperand);
+        const current = parseFloat(this.currentOperand);
+        if (isNaN(prev) || isNaN(current))
+        return
 
+        switch(this.operation){
+            case '+':
+              computation = prev + current;
+              break
+            case '-':
+              computation = prev - current;
+              break
+            case '*':
+              computation = prev * current;
+              break
+            case '÷':
+              computation = prev / current;
+              break
+
+            default: 
+              return;
+        }
+        this.currentOperand = computation; 
+        this.operation = undefined;
+        this.previousOperand = ''
     }
 
     updateDisplay(){    // this will update the values inside of our output.
         this.currentOperandTextElement.innerText=this.currentOperand;
-        this.previousOperandTextElement.innerText=this.previousOperation; //overlooked this function and what a nightmare 
+        this.previousOperandTextElement.innerText=this.previousOperand; //overlooked this function and what a nightmare 
     }
      
 }
@@ -82,3 +107,10 @@ operationBtns.forEach((button) => {
         calculator.updateDisplay();
     })
 });
+
+equalsBtn.forEach((button) => {
+    button.addEventListener('click', () => {
+        calculator.compute();
+        calculator.updateDisplay();
+    })
+})
