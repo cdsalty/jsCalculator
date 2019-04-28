@@ -18,7 +18,8 @@ class Calculator {
     }
 
     delete(){ // to remove a single number
-        
+        this.currentOperand = this.currentOperand.toString().slice(0, -1); 
+        // go from index position '0' to the second to last number; essentially chopping off the last number
     }
 
     appendNumber(number){ // What will happen each time a user clicks a number; We will need to pass the number param the user selected.
@@ -28,23 +29,23 @@ class Calculator {
     }
 
     chooseOperation(operation){  // anytime a user clicks on the operation; this function will take the operation selected and do something.
-        if (this.currentOperand === '') return
-        if (this.previousOperand !== ''){
-            this.compute();
+        if (this.currentOperand === '') return  // if there isn't a current number typed/inputted, prevent user from selecting an operator
+        if (this.previousOperand !== ''){  // if there is a value already in the previous Operator, THEN DO THE FOLLOWING
+            this.compute();                 // compute the values when any operation is pressed. 
         }
         this.operation = operation;
-        this.previousOperand = this.currentOperand; // making the previousOperand now hold the currentOperand that was input
+        this.previousOperand = this.currentOperand; // now, the previousOperand will hold the currentOperand input
         this.currentOperand = ''; // now the currentOperand position is empty. 
     }
 
     compute(){  // will take values inside our calculator and compute a singe value for what needs to display.
-        let computation;
-        const prev = parseFloat(this.previousOperand);
+        let computation;  // created variable; it will become the result of our compute function
+        const prev = parseFloat(this.previousOperand);  // converting the string back to a number 
         const current = parseFloat(this.currentOperand);
-        if (isNaN(prev) || isNaN(current))
+        if (isNaN(prev) || isNaN(current))  // if user presses equal and there isn't a number, return and don't allow or if the current input is empty, prevent user from computing because there is nothing to compute.
         return
 
-        switch(this.operation){
+        switch(this.operation){  // using since there are many operations on just one object.
             case '+':
               computation = prev + current;
               break
@@ -61,7 +62,7 @@ class Calculator {
             default: 
               return;
         }
-        this.currentOperand = computation; 
+        this.currentOperand = computation; // will the the result of operation
         this.operation = undefined;
         this.previousOperand = ''
     }
@@ -86,16 +87,12 @@ const currentOperandTextElement = document.querySelector('[data-current-input]')
 
 // Step 4: Create a calculator object and pass everything into it.
 const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
-// I originally had "new (c)alculator" the lowercase caused a "not defined statement." 
-// syntax: var object = new Object();
-
 // Step 5: Add EventListners 
-    // For our buttons that are numbers
+    // For each button that is a number
 numberBtns.forEach((button) => {
     button.addEventListener('click', () => {
         //console.log("sanity check");
-        calculator.appendNumber(button.innerText);  // hey mr. appendNumber function in the calculator, I want you to update the 
-                                                    // display to show the innerText of the button clicked. 0-9 and .
+        calculator.appendNumber(button.innerText);  // calling append function and passing the innerText of the selected button
         calculator.updateDisplay();                 // updateDisplay, I want to call you too
     })
 });
@@ -108,9 +105,17 @@ operationBtns.forEach((button) => {
     })
 });
 
-equalsBtn.forEach((button) => {
-    button.addEventListener('click', () => {
-        calculator.compute();
-        calculator.updateDisplay();
-    })
+equalsBtn.addEventListener('click', (button) => {
+    calculator.compute();
+    calculator.updateDisplay();
+})
+
+clearScreen.addEventListener('click', (button) => {
+    calculator.clear(); // assinged when the calulator is first called upon
+    calculator.updateDisplay();
+})
+
+deleteBtn.addEventListener('click', (button) => {
+    calculator.delete();
+    calculator.updateDisplay();
 })
