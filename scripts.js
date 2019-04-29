@@ -18,7 +18,7 @@ class Calculator {
     }
 
     delete(){ // to remove a single number
-        this.currentOperand = this.currentOperand.toString().slice(0, -1); 
+        this.currentOperand = this.currentOperand.toString().slice(0, -1); // saving all the numbers from 0 to second to last and storing it into this.currentOperand
         // go from index position '0' to the second to last number; essentially chopping off the last number
     }
 
@@ -30,7 +30,7 @@ class Calculator {
 
     chooseOperation(operation){  // anytime a user clicks on the operation; this function will take the operation selected and do something.
         if (this.currentOperand === '') return  // if there isn't a current number typed/inputted, prevent user from selecting an operator
-        if (this.previousOperand !== ''){  // if there is a value already in the previous Operator, THEN DO THE FOLLOWING
+        if (this.previousOperand !== ''){  // as long is the value isn't empty, it will allow you to continuely do 8 + 8, display 64 and then * 2 and continue
             this.compute();                 // compute the values when any operation is pressed. 
         }
         this.operation = operation;
@@ -59,7 +59,7 @@ class Calculator {
               computation = prev / current;
               break
 
-            default: 
+            default: // similar to an else statment
               return;
         }
         this.currentOperand = computation; // will the the result of operation
@@ -69,9 +69,12 @@ class Calculator {
 
     updateDisplay(){    // this will update the values inside of our output.
         this.currentOperandTextElement.innerText=this.currentOperand;
-        this.previousOperandTextElement.innerText=this.previousOperand; //overlooked this function and what a nightmare 
-    }
-     
+        if (this.operation != null) {
+            this.previousOperandTextElement.innerText = 
+              `${this.previousOperand} ${this.operation}`
+        }
+        // this.previousOperandTextElement.innerText=this.previousOperand; //overlooked this function and what a nightmare 
+    }   
 }
 
 
