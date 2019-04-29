@@ -69,7 +69,7 @@ class Calculator {
 
     updateDisplay(){    // this will update the values inside of our output.
         this.currentOperandTextElement.innerText=this.currentOperand;
-        if (this.operation != null) {
+        if (this.operation != null) {   // as long as the operation isn't empty or if there IS AN OPERATION that has been input by user
             this.previousOperandTextElement.innerText = 
               `${this.previousOperand} ${this.operation}`
         }
